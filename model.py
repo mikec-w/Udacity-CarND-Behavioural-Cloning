@@ -17,7 +17,7 @@ from sklearn.model_selection import train_test_split
 
 # Load Data to start
 samples = []
-with open('/opt/data/data/driving_log.csv') as csvfile:
+with open('/opt/data/driving_log.csv') as csvfile:
     reader = csv.reader(csvfile)
     # skip header
     next(reader)
@@ -39,7 +39,7 @@ def generator(samples, batch_size=32):
             images = []          
             measurements = []
             for batch_sample in batch_samples:
-                name = '/opt/data/data/IMG/' + batch_sample[0].split('/')[-1]
+                name = '/opt/data/IMG/' + batch_sample[0].split('/')[-1]
                 image = cv2.imread(name)
                 images.append(image)
                 # Get steering wheel measurement (4th column)

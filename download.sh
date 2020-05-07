@@ -17,10 +17,15 @@ cd /opt/data
 # User Generated Data link
 #wget -O track1.zip --no-check-certificate "https://onedrive.live.com/download?cid=B7BE61D821A6E0C4&resid=B7BE61D821A6E0C4%21149&authkey=AOXLWZPtnFONfiY"
 
-wget -O track1.zip --no-check-certificate "https://onedrive.live.com/download?cid=B7BE61D821A6E0C4&resid=B7BE61D821A6E0C4%21151&authkey=AClFBjzrDCWwwyc"
+#wget -O track1.zip --no-check-certificate "https://onedrive.live.com/download?cid=B7BE61D821A6E0C4&resid=B7BE61D821A6E0C4%21152&authkey=ACidCPiXhczNa5E"
+#unzip track1.zip
+#rm track1.zip
 
+# XBox Controller Data - 3 laps in each direction
+wget -O track1.zip --no-check-certificate "https://onedrive.live.com/download?cid=B7BE61D821A6E0C4&resid=B7BE61D821A6E0C4%21154&authkey=AIkotavr4gEpzlU"
 unzip track1.zip
 rm track1.zip
+
 
 # Unzip 
 

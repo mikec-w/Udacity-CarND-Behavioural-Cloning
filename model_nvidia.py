@@ -17,7 +17,7 @@ from sklearn.model_selection import train_test_split
 
 # Load Data to start
 samples = []
-steer_correction = 5
+steer_correction = 0.2
 
 with open('/opt/data/driving_log.csv') as csvfile:
     reader = csv.reader(csvfile)
@@ -80,16 +80,16 @@ model.add(Cropping2D(cropping=((50,20),(0,0))))
 
 # Model
 # Conv2D 
-model.add(Conv2D(24, kernel_size=(5,5), strides=(2,2)))
+model.add(Conv2D(24, kernel_size=(5,5), strides=(2,2),activation="relu"))
 # Conv2D 5x5 kernel - 31x98x24
           
-model.add(Conv2D(36, kernel_size=(5,5), strides=(2,2)))
+model.add(Conv2D(36, kernel_size=(5,5), strides=(2,2),activation="relu"))
 # Conv2D 5x5 kernal - 14, 47, 36
-model.add(Conv2D(48, kernel_size=(5,5), strides=(2,2)))
+model.add(Conv2D(48, kernel_size=(5,5), strides=(2,2),activation="relu"))
 # Conv2D 5x5 kernal - 5 22 48
-model.add(Conv2D(64, kernel_size=(3,3)))
+model.add(Conv2D(64, kernel_size=(3,3),activation="relu"))
 # Conv2D 3x3 kernel - 3 20 64
-model.add(Conv2D(64, kernel_size=(5,5)))
+model.add(Conv2D(64, kernel_size=(5,5),activation="relu"))
 # Conv2D 3x3 kkernal 1 18 64
 
 # Flatten
@@ -97,13 +97,13 @@ model.add(Flatten())
 
 # Fully connected 1164 - 100
 model.add(Dense(100))
-model.add(Dropout(0.2))
+model.add(Dropout(0.25))
 # Fully connected 100 - 50
 model.add(Dense(50))
-model.add(Dropout(0.2))
+model.add(Dropout(0.25))
 # Fully connected 50 - 10
 model.add(Dense(10))
-model.add(Dropout(0.2))
+model.add(Dropout(0.25))
 # Fully connect 10 -1 
 model.add(Dense(1))
   
@@ -111,7 +111,7 @@ model.compile(loss='mse', optimizer='adam')
 #model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=7)
 model.fit_generator(train_generator, steps_per_epoch=np.ceil(len(train_samples)/batch_size), \
                     validation_data=validation_generator, validation_steps=np.ceil(len(validation_samples)/batch_size), \
-                    epochs=3, verbose=1)
+                    epochs=2, verbose=1)
           
 model.save('model.h5')
           

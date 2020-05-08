@@ -1,5 +1,8 @@
 ## Model for Autonomous Driving
 
+## BASIC MODEL - for full model see model_nvidia.py
+
+
 # Import Library
 import csv
 import cv2 

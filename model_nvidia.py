@@ -51,12 +51,13 @@ def generator(samples, batch_size=32):
             for batch_sample in batch_samples:
                 name = '/opt/data/IMG/' + batch_sample[0].split('/')[-1]
                 image = cv2.imread(name)
+                image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
                 images.append(image)
                 # Get steering wheel measurement (4th column)
                 measurements.append(float(batch_sample[3]))
             
                 # Add inverted images...
-                images.append(cv2.flip(image, 0))
+                images.append(cv2.flip(image, 1))
                 measurements.append(-float(batch_sample[3]))
     
     
@@ -73,9 +74,9 @@ validation_generator = generator(validation_samples, batch_size=batch_size)
 model = Sequential()
 
 # Preprocessing (normalize & crop image)
-model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(160, 320,3)))
-model.add(Cropping2D(cropping=((50,20),(0,0))))
-
+model.add(Cropping2D(cropping=((50,20),(0,0)), input_shape=(160,320,3)))
+model.add(Lambda(lambda x: (x / 255.0) - 0.5))
+          
 # NVidia converted to YUV colourspace here??? 
 
 # Model
@@ -89,7 +90,7 @@ model.add(Conv2D(48, kernel_size=(5,5), strides=(2,2),activation="relu"))
 # Conv2D 5x5 kernal - 5 22 48
 model.add(Conv2D(64, kernel_size=(3,3),activation="relu"))
 # Conv2D 3x3 kernel - 3 20 64
-model.add(Conv2D(64, kernel_size=(5,5),activation="relu"))
+model.add(Conv2D(64, kernel_size=(3,3),activation="relu"))
 # Conv2D 3x3 kkernal 1 18 64
 
 # Flatten
@@ -110,8 +111,7 @@ model.add(Dense(1))
 model.compile(loss='mse', optimizer='adam')
 #model.fit(X_train, y_train, validation_split=0.2, shuffle=True, nb_epoch=7)
 model.fit_generator(train_generator, steps_per_epoch=np.ceil(len(train_samples)/batch_size), \
-                    validation_data=validation_generator, validation_steps=np.ceil(len(validation_samples)/batch_size), \
-                    epochs=2, verbose=1)
+                    validation_data=validation_generator, validation_steps=np.ceil(len(validation_samples)/batch_size), epochs=5, verbose=1)
           
 model.save('model.h5')
           

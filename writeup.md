@@ -30,11 +30,11 @@ The goals / steps of this project are the following:
 #### 1. Submission includes all required files and can be used to run the simulator in autonomous mode
 
 My project includes the following files:
-* model_nivida.py containing the script to create and train the model
-* drive.py for driving the car in autonomous mode
-* model.h5 containing a trained convolution neural network 
-* writeup.md summarizing the results
-* video.mp4 video showing the unaided lap 
+* **model_nivida.py** containing the script to create and train the model
+* **drive.py** for driving the car in autonomous mode
+* **model.h5** containing a trained convolution neural network 
+* **writeup.md** summarizing the results
+* **video.mp4** video showing the unaided lap 
 
 Using the Udacity provided simulator and the drive.py file, the car can be driven autonomously around the track by executing 
 ```sh
@@ -61,19 +61,17 @@ Using KERAS the model detailed in the reference paper (above) was built and init
 
 A modification was made to the model to add suitable dropouts are each of the fully connected layers at the end of the model. These were set to have a 25% probability of dropping a node during training in order to prevent overfitting and generate a more robust model.
 
-Having trained the model using the training set collected using the philosophy detailed above, the final validation was to run the car in autonomous mode. This was reasonably successful and the car managed to complete one entire lap wihout venturing onto the kerbs. However, it is clear that a more substantial training set is probably necessary to result in a smoother drive for the occupants and to better maintain the centre-of-the-lane position.
-
 
 #### 2. Final Model Architecture
 
-The final model architecture (model_nvidia.py) consisted of a convolution neural network with the following layers and layer sizes ...
+The final model architecture (model_nvidia.py) consisted of a convolution neural network with the following layers:
 
 * 1 cropping layer
 * 1 normalization layer
 * 5 convolution layers
 * 4 fully connected layers with dropouts
 
-Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
+Here is a visualization of the architecture
 
 ![alt text][image1]
 
@@ -98,7 +96,7 @@ These images show an example of an attempted recovery:
 ![alt text][image5]
 
 Note how the three examples demonstrate the different types of kerb used on the test track.
-
+Having trained the model using the training set collected using the philosophy detailed above, the final validation was to run the car in autonomous mode. This was reasonably successful and the car managed to complete one entire lap wihout venturing onto the kerbs. However, it is clear that a more substantial training set is probably necessary to result in a smoother drive for the occupants and to better maintain the centre-of-the-lane position.
 Here is an example of an original and a flipped image used to augment the dataset. Note the steering measurement is also flipped.
 
 ![alt text][image6]
@@ -112,3 +110,6 @@ The training data was split into training and validation sets and the mean squar
 
 The model used an adam optimizer, so the learning rate was not tuned manually. The number of EPOCHs did seem to have an effect but we generally stabilised by about the 10th iteration. Dropout rate was adjusted slightly but did not seem to have any clearly noticable effect, accordingly a 25% dropout rate was chosen.
 
+#### 4 Final Validation
+
+Having trained the model using the training set collected using the philosophy detailed above, the final validation was to run the car in autonomous mode. This was reasonably successful and the car managed to complete one entire lap wihout venturing onto the kerbs. However, it is clear that a more substantial training set is probably necessary to result in a smoother drive for the occupants and to better maintain the centre-of-the-lane position.
